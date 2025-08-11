@@ -2,12 +2,13 @@
 
 namespace Core.Driver
 {
-    public static class Driver
+    public static class DriverHandler
     {
         private static readonly ThreadLocal<IWebDriver?> webDriver = new();
 
-        public static IWebDriver? GetDriver()
+        public static IWebDriver GetDriver()
         {
+            ArgumentNullException.ThrowIfNull(webDriver.Value);
             return webDriver.Value;
         }
 
