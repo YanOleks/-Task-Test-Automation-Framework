@@ -6,6 +6,7 @@ namespace Business.Pages
     public class SearchResultPage(IWebDriver driver) : BasePage(driver)
     {
         private readonly By searchResultLinksBy = By.CssSelector(".search-results__items a");
+        private readonly By searchResult = By.CssSelector(".search-results__items");
 
         public IEnumerable<IWebElement> GetSearchResultLinks()
         {

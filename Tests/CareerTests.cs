@@ -1,8 +1,7 @@
 ﻿using _Task__Page_Object_Pattern.Pages;
 using OpenQA.Selenium;
-using Tests;
 
-namespace _Task__Page_Object_Pattern
+namespace Tests
 {
     [TestFixture]
     public class CareerTests : BaseTest

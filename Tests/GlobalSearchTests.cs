@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tests;
+using NUnit.Framework.Interfaces;
+using NUnit.Framework.Internal;
+using OpenQA.Selenium;
 
-namespace _Task__Page_Object_Pattern
+namespace Tests
 {
     [TestFixture]
     public class GlobalSearchTests : BaseTest
@@ -20,9 +22,9 @@ namespace _Task__Page_Object_Pattern
                 .ClickSearchButton()
                 .InputInSearchField(searchTerm)
                 .ClickFindButton()
-                .GetSearchResultLinks();
+                .GetSearchResultLinks();            
 
-            var isTermPresent = links.All(link => link.Text.ToLowerInvariant().Contains(searchTerm.ToLowerInvariant()));
+            var isTermPresent = links.All(link => link.Text.Contains(searchTerm, StringComparison.InvariantCultureIgnoreCase));
             Assert.That(isTermPresent, Is.True, $"The term '{searchTerm}' was not found in the search results.");
         }  
     }

@@ -8,7 +8,7 @@ using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using _Task__Page_Object_Pattern.Pages;
 
-namespace _Task__Page_Object_Pattern
+namespace Tests
 {
     [TestFixture]
     public class FileDownloadTests
@@ -31,7 +31,7 @@ namespace _Task__Page_Object_Pattern
                 Directory.EnumerateFiles(downloadFolderPath).ToList().ForEach(File.Delete);
             }
 
-            ChromeOptions options = new ChromeOptions();
+            var options = new ChromeOptions();
             options.AddUserProfilePreference("download.default_directory", downloadFolderPath);
             options.AddUserProfilePreference("download.prompt_for_download", false);
             options.AddUserProfilePreference("download.directory_upgrade", true);
@@ -53,16 +53,16 @@ namespace _Task__Page_Object_Pattern
                 .ScrollToGlanceSection()
                 .ClickDesktopDownloadButton();
 
-            string expectedFilePath = Path.Combine(downloadFolderPath, expectedFileName);
+            var expectedFilePath = Path.Combine(downloadFolderPath, expectedFileName);
             Console.WriteLine($"Waiting for download to finish: {expectedFilePath}");
 
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
             try
             {
                 wait.Until(d => {
                     if (File.Exists(expectedFilePath))
                     {
-                        FileInfo fileInfo = new FileInfo(expectedFilePath);
+                        var fileInfo = new FileInfo(expectedFilePath);
                         return fileInfo.Length > 0 && !fileInfo.Extension.EndsWith("crdownload", StringComparison.OrdinalIgnoreCase);
                     }
                     return false;

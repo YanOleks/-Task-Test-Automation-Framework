@@ -9,7 +9,7 @@ using Serilog;
 namespace Tests
 {
     [SetUpFixture]
-    public class TestSetup
+    public sealed class TestSetup
     {
         [OneTimeSetUp]
         public void OneTimeSetUp()

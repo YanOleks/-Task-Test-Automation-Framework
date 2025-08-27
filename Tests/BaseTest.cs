@@ -5,12 +5,14 @@ using Core.Utils;
 using Core.Driver;
 using System.Runtime.InteropServices;
 using _Task__Page_Object_Pattern.Pages;
+using OpenQA.Selenium;
 
 namespace Tests
 {    
-    public class BaseTest
+    public abstract class BaseTest
     {
         protected IndexPage indexPage;
+        protected IWebElement? element;
 
         [SetUp]
         public void Setup()
@@ -29,8 +31,9 @@ namespace Tests
 
             if (testStatus == TestStatus.Failed)
             {
-                Log.Error("Test failed. Capturing a screenshot.");
-                CaptureScreenshotIfSupported();
+                Log.Error($"Test failed. {TestContext.CurrentContext.Result.Message}");
+                var path = CaptureScreenshotIfSupported();
+                Log.Information($"Screenshot is saved at {path}");
             }
 
             Log.Information("Test finished with status: {TestStatus}", testStatus);
@@ -39,12 +42,13 @@ namespace Tests
             DriverHandler.QuitDriver();
         }
 
-        private static void CaptureScreenshotIfSupported()
+        private static string? CaptureScreenshotIfSupported()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                ScreenshotMaker.TakeBrowserScreenshot(DriverHandler.GetDriver());
+                return ScreenshotMaker.TakeBrowserScreenshot(DriverHandler.GetDriver());
             }
+            else return null;
         }
     }
 }

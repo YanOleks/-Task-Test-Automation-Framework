@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tests;
 
-namespace _Task__Page_Object_Pattern
+namespace Tests
 {
     [TestFixture]
     internal class InsightsTest : BaseTest
